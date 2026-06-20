@@ -51,7 +51,3 @@ export const USER_TABLE_OPTIONS = {
         bottomEnd: 'paging',
     },
 };
-
-export const USER_TABLE_SORT_OPTIONS = USER_TABLE_COLUMNS
-    .map((column, index) => ({ ...column, index }))
-    .filter((column) => column.title && column.orderable !== false);

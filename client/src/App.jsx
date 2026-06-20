@@ -16,9 +16,9 @@ const AppShell = ({ user, setUser }) => {
     useAuthRedirect(setUser);
 
     return (
-        <div className="min-vh-100 d-flex flex-column">
+        <div className="app-shell d-flex flex-column">
             <Navbar user={user} setUser={setUser} />
-            <main className="flex-grow-1 d-flex flex-column">
+            <main className="app-shell-main flex-grow-1 d-flex flex-column">
                 <AppRoutes user={user} setUser={setUser} />
             </main>
         </div>

@@ -8,7 +8,7 @@ const Navbar = ({ user, setUser }) => {
     const navbar = useNavbar(setUser);
 
     return (
-        <nav className="navbar navbar-expand-md navbar-dark bg-dark shadow-sm px-3 px-md-4 py-3">
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark shadow-sm px-3 px-md-4 py-3 sticky-top">
             <BrandLink user={user} onClick={navbar.closeMenu} />
             <NavbarToggler isOpen={navbar.isOpen} onClick={navbar.toggleMenu} />
             <NavbarContent user={user} navbar={navbar} />

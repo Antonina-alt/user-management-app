@@ -1,12 +1,27 @@
 html,
-body,
-#root {
+body {
   min-height: 100%;
 }
 
 body {
   margin: 0;
   background-color: #ffffff;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+.app-shell {
+  min-height: 100dvh;
+}
+
+.app-shell-main {
+  min-height: 0;
+}
+
+.auth-page {
+  min-height: 0;
 }
 
 .auth-content {

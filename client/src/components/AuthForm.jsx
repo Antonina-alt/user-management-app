@@ -3,10 +3,10 @@ import FormField from './FormField.jsx';
 
 const AuthForm = (props) => {
     return (
-        <main className="flex-grow-1 row g-0 bg-white overflow-hidden">
+        <div className="auth-page flex-grow-1 row g-0 bg-white overflow-hidden">
             <AuthPanel {...props} />
             <AuthVisual />
-        </main>
+        </div>
     );
 };
 
@@ -52,7 +52,7 @@ const SubmitButton = ({ isSubmitting, buttonText }) => (
 );
 
 const AuthFooter = ({ bottomText, bottomLinkText, bottomLinkTo }) => (
-    <p className="small text-secondary mt-4 mt-md-5 pt-2 pt-md-4 mb-0">
+    <p className="small text-secondary mt-3 mt-md-5 pt-2 pt-md-4 mb-0">
         {bottomText}{' '}
         <Link to={bottomLinkTo} className="link-primary text-decoration-none">{bottomLinkText}</Link>
     </p>

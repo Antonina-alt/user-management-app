@@ -51,11 +51,19 @@ export const renderTruncatedText = (data, type) => {
     if (type !== 'display') {
         return data || '';
     }
+
     const safeText = escapeHtml(data);
+
     return `
-        <span 
+        <span
             class="d-inline-block text-truncate user-table-text"
-            title="${safeText}"
+            data-bs-toggle="tooltip"
+            data-bs-title="${safeText}"
+            data-bs-trigger="hover focus"
+            data-bs-placement="top"
+            data-bs-container="body"
+            tabindex="0"
+            aria-label="${safeText}"
         >
             ${safeText}
         </span>

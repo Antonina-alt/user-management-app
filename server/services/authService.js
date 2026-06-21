@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const ApiError = require('../utils/ApiError');
-const { requireFields } = require('../utils/validators');
+const { requireFields, validateRegisterData, validateLoginData } = require('../utils/validators');
 const { sendConfirmationEmail } = require('./emailService');
 const { verifyEmailConfirmationToken } = require('../utils/token');
 const authMessages = require('../constants/authMessages');
@@ -28,6 +28,7 @@ const sendConfirmation = (user) => sendConfirmationEmail(user).catch(logEmailErr
 
 const register = async (data) => {
   requireFields(data, REGISTER_FIELDS);
+  validateRegisterData(data);
   const user = await createUser(data);
   sendConfirmation(user);
   return { user: toPublicUser(user), message: authMessages.registered };
@@ -41,6 +42,7 @@ const confirmEmail = async (token) => {
 
 const login = async (data) => {
   requireFields(data, LOGIN_FIELDS);
+  validateLoginData(data);
   const user = await getLoginUser(data);
   return toPublicUser(await users.updateLastLogin(user.id));
 };
@@ -52,7 +54,7 @@ const getAuthorizedUser = async (id) => {
 
 const createUser = async ({ name, email, password }) => {
   const passwordHash = await bcrypt.hash(password, 10);
-  return users.create({ name, email, passwordHash }).catch(handleCreateUserError);
+  return users.create({ name: name.trim(), email: email.trim(), passwordHash }).catch(handleCreateUserError);
 };
 
 const getLoginUser = async ({ email, password }) => {

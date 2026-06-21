@@ -43,6 +43,7 @@ const FieldInput = ({ field, value, onChange, type = field.type }) => (
         name={field.name}
         value={value}
         onChange={onChange}
+        maxLength={field.maxLength}
         required
     />
 );

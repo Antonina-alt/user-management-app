@@ -1,6 +1,11 @@
+const FIELD_LIMITS = {
+    nameMaxLength: 100,
+    emailMaxLength: 255,
+};
+
 const FIELD = {
-    name: { name: 'name', label: 'Name', type: 'text' },
-    email: { name: 'email', label: 'E-mail', type: 'email' },
+    name: { name: 'name', label: 'Name', type: 'text', maxLength: FIELD_LIMITS.nameMaxLength },
+    email: { name: 'email', label: 'E-mail', type: 'email', maxLength: FIELD_LIMITS.emailMaxLength },
     password: { name: 'password', label: 'Password', type: 'password' },
 };
 

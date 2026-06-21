@@ -13,12 +13,8 @@ module.exports = {
   nodeEnv: env.NODE_ENV || 'development',
 
   mail: {
-    host: env.SMTP_HOST,
-    port: number(env.SMTP_PORT, 587),
-    secure: env.SMTP_SECURE === 'true',
-    user: env.SMTP_USER,
-    pass: env.SMTP_PASS,
-    from: env.MAIL_FROM || 'User Manager <no-reply@example.com>',
+    apiKey: env.SENDGRID_API_KEY,
+    from: env.MAIL_FROM || 'User Manager <antoniadashkevich@gmail.com>',
   },
 
   db: {

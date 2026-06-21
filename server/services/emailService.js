@@ -1,23 +1,18 @@
-const nodemailer = require('nodemailer');
+const sendgrid = require('@sendgrid/mail');
 const { appUrl, mail } = require('../config/env');
 const { createEmailConfirmationToken } = require('../utils/token');
 
-const isMailConfigured = () => mail.host && mail.user && mail.pass;
-const confirmationUrl = (userId) => `${appUrl}/api/auth/confirm-email/${createEmailConfirmationToken(userId)}`;
+const isMailConfigured = () => mail.apiKey && mail.from;
 
-const createTransporter = () => nodemailer.createTransport({
-  host: mail.host,
-  port: mail.port,
-  secure: mail.secure,
-  auth: { user: mail.user, pass: mail.pass },
-});
+const confirmationUrl = (userId) =>
+    `${appUrl}/api/auth/confirm-email/${createEmailConfirmationToken(userId)}`;
 
 const confirmationHtml = (user, url) => `
-  <h2>Hello, ${user.name}!</h2>
-  <p>Your account has been registered.</p>
-  <p>Please confirm your e-mail by clicking the link below:</p>
-  <p><a href="${url}">Confirm e-mail</a></p>
-  <p>If you did not create this account, ignore this message.</p>
+    <h2>Hello, ${user.name}!</h2>
+    <p>Your account has been registered.</p>
+    <p>Please confirm your e-mail by clicking the link below:</p>
+    <p><a href="${url}">Confirm e-mail</a></p>
+    <p>If you did not create this account, ignore this message.</p>
 `;
 
 const logConfirmationLink = (url) => {
@@ -32,7 +27,10 @@ const createMessage = (user, url) => ({
   html: confirmationHtml(user, url),
 });
 
-const sendMessage = (user, url) => createTransporter().sendMail(createMessage(user, url));
+const sendMessage = async (user, url) => {
+  sendgrid.setApiKey(mail.apiKey);
+  return sendgrid.send(createMessage(user, url));
+};
 
 const sendConfirmationEmail = async (user) => {
   const url = confirmationUrl(user.id);

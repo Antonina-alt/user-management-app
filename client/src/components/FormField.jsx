@@ -28,7 +28,7 @@ const PasswordInput = ({ field, value, onChange }) => {
 const PasswordToggleButton = ({ showPassword, onClick }) => (
     <button
         type="button"
-        className="btn btn-outline-secondary"
+        className="btn btn-light border text-secondary"
         onClick={onClick}
         aria-label={showPassword ? 'Hide password' : 'Show password'}
     >

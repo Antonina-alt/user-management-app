@@ -23,7 +23,7 @@ const validateMaxLength = (value, maxLength, fieldName) => {
 
 const validateEmail = (email) => {
   if (!EMAIL_REGEX.test(email)) {
-    throw new ApiError(400, 'Please enter a valid e-mail address.');
+    throw new ApiError(400, 'Please enter a valid e-mail address. It must contain "@" and a domain, for example: name@example.com.');
   }
   validateMaxLength(email, EMAIL_MAX_LENGTH, 'E-mail');
 };

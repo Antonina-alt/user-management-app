@@ -14,7 +14,8 @@ module.exports = {
 
   mail: {
     apiKey: env.SENDGRID_API_KEY,
-    from: env.MAIL_FROM || 'User Manager <antoniadashkevich@gmail.com>',
+    fromName: env.MAIL_FROM_NAME || 'User Manager App',
+    fromEmail: env.MAIL_FROM_EMAIL,
   },
 
   db: {

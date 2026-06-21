@@ -2,7 +2,7 @@ const sendgrid = require('@sendgrid/mail');
 const { appUrl, mail } = require('../config/env');
 const { createEmailConfirmationToken } = require('../utils/token');
 
-const isMailConfigured = () => mail.apiKey && mail.from;
+const isMailConfigured = () => mail.apiKey && mail.fromEmail;
 
 const confirmationUrl = (userId) =>
     `${appUrl}/api/auth/confirm-email/${createEmailConfirmationToken(userId)}`;
@@ -21,8 +21,8 @@ const logConfirmationLink = (url) => {
 };
 
 const createMessage = (user, url) => ({
-  from: mail.from,
-  to: user.email,
+  from: {email: mail.fromEmail, name: mail.fromName},
+  to: {email: user.email, name: user.name},
   subject: 'Confirm your e-mail',
   html: confirmationHtml(user, url),
 });

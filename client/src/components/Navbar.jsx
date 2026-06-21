@@ -83,7 +83,7 @@ const NavbarActions = ({ user, onLogout, onClick }) => (
 
 const UserActions = ({ user, onLogout }) => (
     <>
-        <span className="navbar-text text-white-50 small d-none d-md-inline text-truncate navbar-user-email" data-bs-toggle="tooltip" data-bs-trigger="hover focus click" data-bs-placement="bottom" title={user.email}>{user.email}</span>
+        <span className="navbar-text text-white-50 small d-none d-md-inline text-truncate navbar-user-email" data-bs-toggle="tooltip" data-bs-placement="bottom" title={user.email}>{user.email}</span>
         <button type="button" onClick={onLogout} className="btn btn-danger btn-sm fw-medium px-3">Logout</button>
     </>
 );

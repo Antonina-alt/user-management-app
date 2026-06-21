@@ -3,24 +3,81 @@ import Tooltip from 'bootstrap/js/dist/tooltip';
 
 const TOOLTIP_SELECTOR = '[data-bs-toggle="tooltip"]';
 
+const TOOLTIP_OPTIONS = {
+    trigger: 'hover focus',
+    container: 'body',
+};
+
 const OBSERVER_OPTIONS = {
     childList: true,
     subtree: true,
 };
 
+const INTERACTIVE_SELECTOR = 'button, a, input, select, textarea, [role="button"], .btn, .btn-group';
+
 const isElement = (element) => {
     return element instanceof Element;
+};
+
+const isInteractiveElement = (element) => {
+    return element.matches(INTERACTIVE_SELECTOR);
 };
 
 const getTooltipElements = () => {
     return Array.from(document.querySelectorAll(TOOLTIP_SELECTOR)).filter(isElement);
 };
 
+const normalizeTooltipElement = (element) => {
+    moveTitleToBootstrapTitle(element);
+    element.setAttribute('data-bs-trigger', TOOLTIP_OPTIONS.trigger);
+    element.setAttribute('data-bs-container', TOOLTIP_OPTIONS.container);
+};
+
+const moveTitleToBootstrapTitle = (element) => {
+    const title = element.getAttribute('title');
+
+    if (title && !element.hasAttribute('data-bs-title')) {
+        element.setAttribute('data-bs-title', title);
+    }
+
+    element.removeAttribute('title');
+};
+
 const initTooltip = (element) => {
-    Tooltip.getOrCreateInstance(element);
+    normalizeTooltipElement(element);
+    bindTooltipEvents(element);
+    Tooltip.getOrCreateInstance(element, TOOLTIP_OPTIONS);
+};
+
+const bindTooltipEvents = (element) => {
+    element.addEventListener('click', hideTooltipAfterInteractiveClick);
+};
+
+const unbindTooltipEvents = (element) => {
+    element.removeEventListener('click', hideTooltipAfterInteractiveClick);
+};
+
+const hideTooltipAfterInteractiveClick = (event) => {
+    const element = event.currentTarget;
+
+    if (isInteractiveElement(element)) {
+        hideTooltip(element);
+        blurElement(element);
+    }
+};
+
+const hideTooltip = (element) => {
+    Tooltip.getInstance(element)?.hide();
+};
+
+const blurElement = (element) => {
+    if (element instanceof HTMLElement) {
+        element.blur();
+    }
 };
 
 const disposeTooltip = (element) => {
+    unbindTooltipEvents(element);
     Tooltip.getInstance(element)?.dispose();
 };
 

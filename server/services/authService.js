@@ -16,7 +16,14 @@ const toPublicUser = ({ id, name, email, status, display_status }) => ({
   status: display_status || status,
 });
 
-const logEmailError = (error) => console.error('Failed to send confirmation e-mail:', error);
+const logEmailError = (error) => {
+  console.error('Failed to send confirmation e-mail:', {
+    message: error.message,
+    code: error.code,
+    statusCode: error.response?.statusCode,
+    errors: error.response?.body?.errors,
+  });
+};
 const sendConfirmation = (user) => sendConfirmationEmail(user).catch(logEmailError);
 
 const register = async (data) => {

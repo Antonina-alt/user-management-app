@@ -11,8 +11,10 @@ const EnabledTooltipButton = ({ children, className, tooltipProps, onClick, ...p
 );
 
 const DisabledTooltipButton = ({ children, className, tooltipProps, ...props }) => (
-    <span className="d-inline-block" tabIndex="0" {...tooltipProps}>
-        <button {...props} type="button" className={`${className} pe-none`} disabled>{children}</button>
+    <span className="btn-group" tabIndex="0" {...tooltipProps}>
+        <button {...props} type="button" className={`${className} pe-none`} disabled>
+            {children}
+        </button>
     </span>
 );
 

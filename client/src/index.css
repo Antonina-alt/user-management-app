@@ -58,3 +58,18 @@ body {
 .status-toast-container {
   z-index: 1100 !important;
 }
+
+.user-table-cell {
+  max-width: max(70px, 20vw);
+}
+
+.user-table-text {
+  width: 100%;
+  max-width: max(60px, 17vw);
+  min-width: 4ch;
+  vertical-align: bottom;
+}
+
+.navbar-user-email {
+  max-width: clamp(120px, 18vw, 260px);
+}

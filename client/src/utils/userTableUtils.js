@@ -42,3 +42,22 @@ export const getUserById = (users, id) => {
 export const includesId = (ids, id) => {
     return ids.map(Number).includes(Number(id));
 };
+
+const escapeHtml = (value = '') => {
+    return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+};
+
+export const renderTruncatedText = (data, type) => {
+    if (type !== 'display') {
+        return data || '';
+    }
+    const safeText = escapeHtml(data);
+    return `
+        <span 
+            class="d-inline-block text-truncate user-table-text"
+            title="${safeText}"
+        >
+            ${safeText}
+        </span>
+    `;
+};

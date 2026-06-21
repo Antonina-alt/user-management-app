@@ -1,5 +1,5 @@
 import { DT } from '../utils/dataTable.js';
-import { renderDateTime, renderStatus } from '../utils/userTableUtils.js';
+import { renderDateTime, renderStatus, renderTruncatedText } from '../utils/userTableUtils.js';
 
 export const USER_STATUS = {
     unverified: 'unverified',
@@ -16,8 +16,8 @@ export const USER_TABLE_COLUMNS = [
         width: '44px',
         render: DT.render.select(),
     },
-    { data: 'name', title: 'Name' },
-    { data: 'email', title: 'E-mail' },
+    { data: 'name', title: 'Name', render: renderTruncatedText, className: 'user-table-cell' },
+    { data: 'email', title: 'E-mail', render: renderTruncatedText, className: 'user-table-cell' },
     { data: 'last_login_time', title: 'Last login time', render: renderDateTime },
     { data: 'last_activity_time', title: 'Last activity time', render: renderDateTime },
     { data: 'status', title: 'Status', render: renderStatus },

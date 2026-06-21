@@ -1,14 +1,29 @@
 import { useEffect } from 'react';
 import Tooltip from 'bootstrap/js/dist/tooltip';
 
+const TOOLTIP_SELECTOR = '[data-bs-toggle="tooltip"]';
+
 const getTooltipElements = () => {
-    return Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    return Array.from(document.querySelectorAll(TOOLTIP_SELECTOR))
+        .filter((element) => element instanceof Element);
 };
 
 export const useBootstrapTooltips = (key) => {
     useEffect(() => {
-        const tooltips = getTooltipElements().map((element) => Tooltip.getOrCreateInstance(element));
+        const elements = getTooltipElements();
 
-        return () => tooltips.forEach((tooltip) => tooltip.dispose());
+        elements.forEach((element) => {
+            Tooltip.getOrCreateInstance(element);
+        });
+
+        return () => {
+            elements.forEach((element) => {
+                const tooltip = Tooltip.getInstance(element);
+
+                if (tooltip) {
+                    tooltip.dispose();
+                }
+            });
+        };
     }, [key]);
 };

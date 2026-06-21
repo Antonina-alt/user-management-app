@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { NAV_LINKS } from '../constants/navbar.js';
 import { ROUTES } from '../constants/routes.js';
 import { useLogoutAndGoLogin } from '../hooks/useLogoutAndGoLogin.js';
+import { useBootstrapTooltips } from '../hooks/useBootstrapTooltips.js';
 
 const Navbar = ({ user, setUser }) => {
     const navbar = useNavbar(setUser);
-
+    useBootstrapTooltips(user?.email);
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark shadow-sm px-3 px-md-4 py-3 sticky-top">
             <BrandLink user={user} onClick={navbar.closeMenu} />
@@ -82,7 +83,7 @@ const NavbarActions = ({ user, onLogout, onClick }) => (
 
 const UserActions = ({ user, onLogout }) => (
     <>
-        <span className="navbar-text text-white-50 small d-none d-md-inline">{user.email}</span>
+        <span className="navbar-text text-white-50 small d-none d-md-inline text-truncate navbar-user-email" data-bs-toggle="tooltip" data-bs-trigger="hover focus click" data-bs-placement="bottom" title={user.email}>{user.email}</span>
         <button type="button" onClick={onLogout} className="btn btn-danger btn-sm fw-medium px-3">Logout</button>
     </>
 );
